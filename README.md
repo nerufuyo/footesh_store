@@ -17,10 +17,10 @@ I want implement some feature like this:
 
 *This project not finished yet.
 
-<img src="./assets/screenshot1.png" width=300>
-<img src="./assets/screenshot2.png" width=300>
-<img src="./assets/screenshot3.png" width=300>
-<img src="./assets/screenshot4.png" width=300>
-<img src="./assets/screenshot5.png" width=300>
-<img src="./assets/screenshot6.png" width=300>
-<img src="./assets/screenshot7.png" width=300>
+<img src="./assets/screenshot1.png" width=250>
+<img src="./assets/screenshot2.png" width=250>
+<img src="./assets/screenshot3.png" width=250>
+<img src="./assets/screenshot4.png" width=250>
+<img src="./assets/screenshot5.png" width=250>
+<img src="./assets/screenshot6.png" width=250>
+<img src="./assets/screenshot7.png" width=250>
