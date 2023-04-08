@@ -18,9 +18,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedCategories = 0;
   List isSelectedFavorite = List.generate(shoesList.length, (index) => false);
   List isSelectedCart = List.generate(shoesList.length, (index) => false);
+  int selectedCategories = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,263 +35,312 @@ class _HomePageState extends State<HomePage> {
               const VerticalGap15(),
               _offersContainer(context),
               const VerticalGap15(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'Most Popular',
-                      style: poppins2.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const VerticalGap10(),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    child: ListView.separated(
-                      itemBuilder: ((context, index) {
-                        return InkWell(
-                          onTap: () {
-                            setState(() {
-                              selectedCategories = index;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: selectedCategories == index
-                                  ? secondaryColor
-                                  : quaternaryColor,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  categoriesOffersIcon[index],
-                                  color: selectedCategories == index
-                                      ? tertiaryColor
-                                      : secondaryColor,
-                                ),
-                                const HorizontalGap10(),
-                                Text(
-                                  categoriesOffers[index],
-                                  style: poppins4.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                      itemCount: categoriesOffers.length,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      separatorBuilder: (context, index) =>
-                          const HorizontalGap10(),
-                    ),
-                  ),
-                  const VerticalGap10(),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 825,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        childAspectRatio: .75,
-                      ),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: quaternaryColor,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Stack(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: 100,
-                                      child: CachedNetworkImage(
-                                        imageUrl: shoesImageUrl[index],
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          width: 150,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                        placeholder: (context, url) =>
-                                            const Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
-                                      ),
-                                    ),
-                                    Text(
-                                      shoesList[index],
-                                      style: poppins3.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const VerticalGap5(),
-                                    Row(
-                                      children: [
-                                        Text('Colors: ', style: poppins4),
-                                        const HorizontalGap5(),
-                                        Stack(
-                                          children: [
-                                            const SizedBox(
-                                              width: 40,
-                                              height: 20,
-                                            ),
-                                            Positioned(
-                                              left: 0,
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  color: shoesColor1[index],
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                              ),
-                                            ),
-                                            Positioned(
-                                              left: 10,
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  color: shoesColor2[index],
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                              ),
-                                            ),
-                                            Positioned(
-                                              left: 20,
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  color: shoesColor3[index],
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const VerticalGap5(),
-                                    Text(
-                                      shoesListPrice[index],
-                                      style: poppins2.copyWith(
-                                        color: Colors.amber,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          isSelectedCart[index] =
-                                              !isSelectedCart[index];
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                          ),
-                                          color: primaryColor,
-                                        ),
-                                        padding: const EdgeInsets.all(10),
-                                        child: FaIcon(
-                                          isSelectedCart[index]
-                                              ? FontAwesomeIcons.shoppingCart
-                                              : FontAwesomeIcons.add,
-                                          color: isSelectedCart[index]
-                                              ? Colors.amber
-                                              : secondaryColor,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 1),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          isSelectedFavorite[index] =
-                                              !isSelectedFavorite[index];
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            bottomRight: Radius.circular(20),
-                                          ),
-                                          color: primaryColor,
-                                        ),
-                                        padding: const EdgeInsets.all(10),
-                                        child: FaIcon(
-                                          isSelectedFavorite[index]
-                                              ? FontAwesomeIcons.solidHeart
-                                              : FontAwesomeIcons.heart,
-                                          color: isSelectedFavorite[index]
-                                              ? Colors.red
-                                              : secondaryColor,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      itemCount: 6,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      physics: const NeverScrollableScrollPhysics(),
-                    ),
-                  )
-                ],
-              ),
+              _mostPopularContainer(context),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Column _mostPopularContainer(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            'Most Popular',
+            style: poppins2.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+        const VerticalGap10(),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          child: ListView.separated(
+            itemBuilder: ((context, index) {
+              return InkWell(
+                onTap: () {
+                  setState(() {
+                    selectedCategories = index;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: selectedCategories == index
+                        ? secondaryColor
+                        : quaternaryColor,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    children: [
+                      Icon(
+                        categoriesOffersIcon[index],
+                        color: selectedCategories == index
+                            ? tertiaryColor
+                            : secondaryColor,
+                        size: 20,
+                      ),
+                      const HorizontalGap5(),
+                      Text(
+                        categoriesOffers[index],
+                        style: selectedCategories == index
+                            ? poppins3.copyWith(
+                                fontWeight: FontWeight.bold,
+                              )
+                            : poppins4.copyWith(
+                                color: Colors.white.withOpacity(.75)),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+            itemCount: categoriesOffers.length,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (context, index) => const HorizontalGap10(),
+          ),
+        ),
+        const VerticalGap10(),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 825,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: .75,
+            ),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/product_detail_page');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: quaternaryColor,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Container(
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  color: shoesColor3[index],
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl: shoesImageUrl[index],
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    width: 150,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              shoesList[index],
+                              style: poppins3.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const VerticalGap5(),
+                            Row(
+                              children: [
+                                Text('Colors: ', style: poppins4),
+                                const HorizontalGap5(),
+                                Stack(
+                                  children: [
+                                    const SizedBox(
+                                      width: 40,
+                                      height: 20,
+                                    ),
+                                    Positioned(
+                                      left: 0,
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          color: shoesColor1[index],
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 10,
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          color: shoesColor2[index],
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 20,
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          color: shoesColor3[index],
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const VerticalGap5(),
+                            Text(
+                              shoesListPrice[index],
+                              style: poppins2.copyWith(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                bool isAddedToCart = isSelectedCart[index];
+                                final snackBar = SnackBar(
+                                  content: Text(
+                                    isAddedToCart
+                                        ? '${shoesList[index]} has been removed from cart!'
+                                        : 'Success add ${shoesList[index]} to cart!',
+                                    style: poppins4.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  backgroundColor:
+                                      isAddedToCart ? Colors.red : Colors.green,
+                                  duration: const Duration(milliseconds: 700),
+                                );
+                                setState(() {
+                                  isSelectedCart[index] =
+                                              !isAddedToCart;
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                });
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                  ),
+                                  color: primaryColor,
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: FaIcon(
+                                  isSelectedCart[index]
+                                      ? FontAwesomeIcons.shoppingCart
+                                      : FontAwesomeIcons.add,
+                                  color: isSelectedCart[index]
+                                      ? Colors.amber
+                                      : secondaryColor,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 1),
+                            InkWell(
+                              onTap: () {
+                                bool isAddedToFavorite =
+                                    isSelectedFavorite[index];
+                                final snackBar = SnackBar(
+                                  content: Text(
+                                    isAddedToFavorite
+                                        ? '${shoesList[index]} has been removed from favorite!'
+                                        : 'Success add ${shoesList[index]} to favorite!',
+                                    style: poppins4.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  backgroundColor: isAddedToFavorite
+                                      ? Colors.red
+                                      : Colors.green,
+                                  duration: const Duration(milliseconds: 700),
+                                );
+                                setState(() {
+                                  isSelectedFavorite[index] =
+                                      !isAddedToFavorite;
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                });
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(20),
+                                  ),
+                                  color: primaryColor,
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: FaIcon(
+                                  isSelectedFavorite[index]
+                                      ? FontAwesomeIcons.solidHeart
+                                      : FontAwesomeIcons.heart,
+                                  color: isSelectedFavorite[index]
+                                      ? Colors.red
+                                      : secondaryColor,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+            itemCount: 6,
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+          ),
+        )
+      ],
     );
   }
 
